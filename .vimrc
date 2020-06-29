@@ -21,9 +21,9 @@ call vundle#end()
 " -------------------------------------------
 
 " ===== General Stuff =====
-:syntax on
+syntax on
 
-:set nu rnu
+set nu rnu
 
 " Source: https://stackoverflow.com/questions/234564/tab-key-4-spaces-and-auto-indent-after-curly-braces-in-vim
 filetype plugin indent on
@@ -36,7 +36,7 @@ set softtabstop=4
 
 " ===== Remaps =====
 
-" Convenience Remaps
+" Tabs
 :nnoremap <C-Right> :tabn<CR><LF>
 :nnoremap <C-Left> :tabp<CR><LF>
 
@@ -47,14 +47,15 @@ function! CopyFileToClipboard()
 endfunction
 
 if executable('clip.exe')
-	:nnoremap ;C :call CopyFileToClipboard()<CR><LF>
+	nnoremap ;C :call CopyFileToClipboard()<CR><LF>
+    nnoremap ;P :r !powershell.exe -command "Get-Clipboard"<CR><LF>
 endif
 
 " Building Code
 function! BuildFile(extra_args)
     let spl = split(getline(1), ' ')
     if spl[0] != '//' && spl[0] != '#'
-        :echom 'Currently open file does not have an input file defined'
+        echom 'Currently open file does not have an input file defined'
         return
     endif
 
@@ -72,7 +73,7 @@ command! Verbose :call ToggleVerbose()
 let g:cptools_verbose = 0
 function! ToggleVerbose()
     let g:cptools_verbose = 1 - g:cptools_verbose
-    :echom 'Verbose mode is now ' . (g:cptools_verbose ? 'ON' : 'OFF')
+    echom 'Verbose mode is now ' . (g:cptools_verbose ? 'ON' : 'OFF')
 endfunction
 
 " Substitutions
