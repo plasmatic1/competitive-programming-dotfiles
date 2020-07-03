@@ -7,15 +7,19 @@ flatten = itertools.chain.from_iterable
 def get_args(s):
     res = []
     cur = ''
+    pre = ''
     lay = 0
     for c in s:
         if c in '([{<': lay += 1
-        elif c in ')]}>': lay -= 1
+        elif c in ')]}>':
+            if c != '>' or pre != '-':  # -> Operator
+                lay -= 1
         if c == ',' and lay == 0:
             res.append(cur.strip())
             cur = ''
         else:
             cur += c
+        pre = c
     res.append(cur.strip())
     return res
 
@@ -30,6 +34,9 @@ out = ''
 
 l_space = re.match(r'^(\s*)', line).group(1)  # Leading whitespace 
 
+# Separator for debugging
+db_sep = ' '
+
 if cmd == 'for':  # For loops
     opt, st, en, *jmp = args
 
@@ -38,7 +45,7 @@ if cmd == 'for':  # For loops
     if 'I' in opt:
         cmp += '='
 
-    jmp = jmp[0] if jmp else f'{var}++'
+    jmp = jmp[0] if jmp else (f'{var}++' if 'R' not in opt else f'{var}--')
     out = f'for (auto {var} = {st}; {var} {cmp} {en}; {jmp})'
 elif cmd == 'inn':  # Scanning temporary variables
     out = ', '.join(args) + '\n' + \
@@ -48,13 +55,16 @@ elif cmd == 'in':   # Scanning values
 elif cmd == 'print':  # Printing values
     out = 'cout << ' + ' << \' \' << '.join(bracket(args)) + ' << \'\\n\';'
 elif cmd == 'op':  # Operator overloading
-    cls, op = map(lambda x: x.strip(), args)
+    cls, op, *o_args = map(lambda x: x.strip(), args)
     if op in ['<', '>', '<=', '>=', '==']:
         out = f'bool operator{op}(const {cls} &o) const {{'
     elif op in ['<<', '>>']:
         o_typ = ('istream', 'ostream')[op == '<<']
         o_name = ('in', 'out')[op == '<<']
-        out = f'{o_typ}& operator{op}({o_typ} &{o_name}, const {cls} o) {{'
+        obj_var = (f'{cls} &o', f'const {cls} o')[op == '<<']
+        out = f'{o_typ}& operator{op}({o_typ} &{o_name}, {obj_var}) {{'
+    elif op == 'cmp':
+        out = f'bool {o_args[0]}(const {cls} a, const {cls} b) {{'
     else:
         out = f'sorry operator {op} not supported'
 elif cmd == 'dbout':  # Debug output operators
@@ -78,25 +88,27 @@ elif cmd == 'db':  # Debug O.o
         argspl = arg.split(':')
         if len(argspl) == 1:
             val = argspl[0]
-            out += f'cout << "{val}=" << ({val}) << ", ";\n'
+            out += f'cout<<"{val}="<<({val})<<", ";{db_sep}'
         else:
             a_type, *a_vals, val = argspl
-            if a_type == 'a':
-                out += f'cout << "{a_vals[0]}=" << ({val}) << ", ";\n'
-            elif a_type == 'b':
-                out += f'cout << "{val}=" << (bitset<{a_vals[0]}>({val})) << ", ";\n'
-            elif a_type == 'I':
-                out += f'cout << "{val}=[";\n' + \
-                       f'for (auto x : {val}) cout << x << ", ";\n' + \
-                        'cout << "], ";\n'
-            elif a_type == 'A':
-                out += f'cout << "{val}=[";\n' + \
-                       f'for (int i = 0; i < {a_vals[0]}; i++) cout << {val}[i] << ", ";\n' + \
-                        'cout << "], ";\n'
+            if a_type == 'l':  # Label
+                out += f'cout<<"[{val}]: ";{db_sep}'
+            elif a_type == 'a':  # Alias
+                out += f'cout<<"{a_vals[0]}="<<({val})<< ", ";{db_sep}'
+            elif a_type == 'b':  # Bits
+                out += f'cout<<"{val}="<<(bitset<{a_vals[0]}>({val}))<<", ";{db_sep}'
+            elif a_type == 'I':  # Iterable
+                out += f'cout << "{val}=[";{db_sep}' + \
+                       f'for (auto x:{val})cout<<x<<", ";{db_sep}' + \
+                       f'cout<<"], ";{db_sep}'
+            elif a_type == 'A':  # Array
+                out += f'cout<<"{val}=[";{db_sep}' + \
+                       f'for(int i=0; i<({a_vals[0]}); i++)cout<<{val}[i]<<", ";{db_sep}' + \
+                       f'cout<<"], ";'
             else:
                 out = f'Invalid debug modifiers a_type={a_type}, a_vals={a_vals}, val={val}'
                 break
-    out += 'cout << endl;'
+    out += f'cout << endl; // {line.strip()}'
 else:
     out = f'unknown command "{cmd}" with args {args}'
 
