@@ -50,3 +50,9 @@
 - run python3 ~/.vim/bundle/YouCompleteMe/install.py --clangd-completer
 - copy over `.ycm_extra_conf.py`
 
+# CP Tools Console
+- run `pip3 install cp-tools-console` (or equivalent)
+	- Clone repository from github and run the instructions to setup in dev mode
+- run `mkdir competitive && cd competitive`
+- when starting: do `cd competitive && cpserv`
+
