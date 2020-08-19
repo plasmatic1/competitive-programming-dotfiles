@@ -2,7 +2,10 @@
 using namespace std;
 
 // Defines
+#define fs first
+#define sn second
 #define pb push_back
+#define eb emplace_back
 #define mpr make_pair
 #define mtp make_tuple
 #define all(x) (x).begin(), (x).end()
@@ -23,7 +26,9 @@ struct chash { ll operator()(ll x) const { return x ^ RANDOM; } };
 template <typename T, class Hash> using hashset = gp_hash_table<T, null_type, Hash>;
 template <typename K, typename V, class Hash> using hashmap = gp_hash_table<K, V, Hash>;
 // More utilities
+int SZ(string &v) { return v.length(); }
 template <typename C> int SZ(C &v) { return v.size(); }
+template <typename C> void UNIQUE(vector<C> &v) { sort(v.begin(), v.end()); v.resize(unique(v.begin(), v.end()) - v.begin()); }
 template <typename T, typename U> void maxa(T &a, U b) { a = max(a, b); }
 template <typename T, typename U> void mina(T &a, U b) { a = min(a, b); }
 const ll INF = 0x3f3f3f3f, LLINF = 0x3f3f3f3f3f3f3f3f;

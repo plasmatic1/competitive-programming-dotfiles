@@ -34,6 +34,9 @@ set expandtab
 " Source: https://superuser.com/questions/4511/delete-space-expanded-tab-in-vim-with-one-keystroke
 set softtabstop=4
 
+" Macro define
+let @f = "0i      \<C-c>j"
+
 " ===== Remaps =====
 
 " Tabs
