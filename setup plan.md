@@ -1,4 +1,6 @@
-#### Section 0: Windows terminal
+#### Section 0: Windows terminal and WSL
+- Setup WSL using Ubuntu
+	- Make sure everything is working
 - Add defaults:         
 	
 ```
@@ -14,6 +16,7 @@
 	- Current theme ideas:
 		- Flatland
 		- Firewatch
+- **Alternative**: Copy over `settings.json`
 
 #### Section 1: ZSH ####
 
@@ -48,11 +51,27 @@
 
 # YouCompleteMe 
 - run python3 ~/.vim/bundle/YouCompleteMe/install.py --clangd-completer
-- copy over `.ycm_extra_conf.py`
+- copy over `.ycm_extra_conf.py` to `~/`
+
+# Python 3.7
+- Run the following commands:
+- `sudo apt update`
+- `sudo apt install software-properties-common`
+- `sudo add-apt-repository ppa:deadsnakes/ppa`
+- `sudo apt install python3.7`
+- `update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 1`
 
 # CP Tools Console
 - run `pip3 install cp-tools-console` (or equivalent)
 	- Clone repository from github and run the instructions to setup in dev mode
+	- `git clone <url>`
+	- `cd cp-tools-competitive`
+	- `python3 setup.py develop`
 - run `mkdir competitive && cd competitive`
 - when starting: do `cd competitive && cpserv`
 
+# CP Tools (In General)
+
+- run `mkdir ~/competitive`
+- run `cp -r tools ~/competitive/
+- run `cp .template.cpp ~/competitive/`
