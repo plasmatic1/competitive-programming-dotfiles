@@ -1,0 +1,23 @@
+{
+  "name": "competitive-programming-environment",
+  "version": "1.0.0",
+  "description": "Repository that contains configuration files and steps to setup my CP environment.  This mostly for setting up on new machines, but I guess it doesn't hurt for this to be public either.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thesilican/competitive-programming-environment.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thesilican/competitive-programming-environment/issues"
+  },
+  "homepage": "https://github.com/thesilican/competitive-programming-environment#readme",
+  "dependencies": {
+    "jquery": "^3.5.1"
+  }
+}
