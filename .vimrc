@@ -112,6 +112,7 @@ let g:ycm_min_num_of_chars_for_completion = 0
 let g:ycm_min_num_identifier_candidate_chars = 1
 let g:ycm_max_num_candidates = 20
 let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_auto_trigger = 1
 
 " Airline Themes
 let g:airline_theme='wombat'

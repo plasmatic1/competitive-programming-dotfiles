@@ -99,4 +99,5 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-cd ~
+WINHOME=$(cmd.exe /C "cd /D %USERPROFILE% && bash.exe -c pwd")
+cd $WINHOME/Dropbox/competitive

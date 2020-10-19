@@ -1,4 +1,4 @@
-#!/bin/python3
+#!python3
 import subprocess as sub
 from string import *
 from random import *
@@ -10,10 +10,10 @@ def ts(x):
     return tuple(sorted(x))
 
 
-sub.call(['g++', 'bobs-strategy-game.cpp', '-o', 'fast'])
+sub.call(['g++', 'dmopc-20-contest-1-p5.cpp', '-o', 'fast'])
 sub.call(['g++', 'slow.cpp', '-o', 'slow'])
 
-T = 1000
+T = 500000
 
 def g(N):
     a, b = N, N
@@ -22,35 +22,34 @@ def g(N):
         b = randint(1, N)
     return a, b
 
-for cno in range(T):
-    N = 50
-    M = min(N * (N - 1) // 2, N * 2)
-    K = N // 2
+for cno in range(1, T):
+    N = 1000
+    K = N
+    Q = 1000
 
-    inp = f'1\n{N} {M}\n'
-    HAS = set()
-    for i in range(M):
-        tp = g(N)
-        while ts(tp) in HAS:
-            tp = g(N)
-        HAS.add(ts(tp))
-        inp += f'{tp[0]} {tp[1]}\n'
-    inp += f'1\n{K} '
-    HAS.clear()
-    for i in range(K):
-        n = randint(1, N)
-        while n in HAS:
-            n = randint(1, N)
-        HAS.add(n)
-        inp += f'{n} '
+    inp = f'{N} {K} {Q}\n'
+    inp += " ".join([str(randint(1, K)) for _ in range(N)]) + '\n'
+    for i in range(2, N + 1):
+        inp += f'{randint(1, i - 1)} {i}\n'
+    for i in range(Q):
+        t = randint(1, 2)
+        # t = 2
+        if t == 1:
+            inp += f'1 {randint(1, N)} {randint(1, N)}\n'
+        else:
+            inp += f'2 {randint(1, N)}\n'
 
     ans = sub.run(['./slow'], stdout=sub.PIPE, stderr=sub.PIPE, text=True, input=inp).stdout.strip()
     # ans = ''
     out = sub.run(['./fast'], stdout=sub.PIPE, stderr=sub.PIPE, text=True, input=inp).stdout.strip()
 
+    # ans = str(getans(ans))
+    # out = str(getans(out))
+
     # out = out.split()
     # bad = out[1] if 'ERR' in out else False 
     bad = out.split() != ans.split()
+    # bad = out.stderr if out.returncode else None
 
     if bad:
         print(f'Case wrong: inp: "{inp}"')

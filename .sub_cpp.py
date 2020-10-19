@@ -65,6 +65,8 @@ elif cmd == 'op':  # Operator overloading
         out = f'{o_typ}& operator{op}({o_typ} &{o_name}, {obj_var}) {{'
     elif op == 'cmp':
         out = f'bool {o_args[0]}(const {cls} a, const {cls} b) {{'
+    elif op == 'cmpfn':
+        out = f'bool operator()(const {cls} a, const {cls} b) const {{'
     else:
         out = f'sorry operator {op} not supported'
 elif cmd == 'dbout':  # Debug output operators
@@ -99,11 +101,11 @@ elif cmd == 'db':  # Debug O.o
                 out += f'cout<<"{val}="<<(bitset<{a_vals[0]}>({val}))<<", ";{db_sep}'
             elif a_type == 'I':  # Iterable
                 out += f'cout << "{val}=[";{db_sep}' + \
-                       f'for (auto x:{val})cout<<x<<", ";{db_sep}' + \
+                       f'for (auto __x:{val})cout<<__x<<", ";{db_sep}' + \
                        f'cout<<"], ";{db_sep}'
             elif a_type == 'A':  # Array
                 out += f'cout<<"{val}=[";{db_sep}' + \
-                       f'for(int i=0; i<({a_vals[0]}); i++)cout<<{val}[i]<<", ";{db_sep}' + \
+                       f'for(int __i=0; __i<({a_vals[0]}); __i++)cout<<{val}[__i]<<", ";{db_sep}' + \
                        f'cout<<"], ";'
             else:
                 out = f'Invalid debug modifiers a_type={a_type}, a_vals={a_vals}, val={val}'
