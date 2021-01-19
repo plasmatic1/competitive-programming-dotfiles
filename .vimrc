@@ -81,7 +81,7 @@ endfunction
 
 " Substitutions
 function! CompleteLine()
-    if expand('%:e') != 'cpp'
+    if expand('%:e') != 'cpp' && expand('%:e') != 'h'
         return
     endif
 

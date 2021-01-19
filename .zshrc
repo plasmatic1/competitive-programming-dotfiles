@@ -101,3 +101,17 @@ source $ZSH/oh-my-zsh.sh
 
 WINHOME=$(cmd.exe /C "cd /D %USERPROFILE% && bash.exe -c pwd")
 cd $WINHOME/Dropbox/competitive
+
+# Export to macrohard bimbows
+function expwin() {
+    if [ "$1" = "-r" ]; then
+        echo "Moving recursively to downloads"
+        cp -r "$2" "$WINHOME/Downloads"
+    else
+        echo "Moving to downloads"
+        cp "$1" "$WINHOME/Downloads"
+    fi
+}
+
+# Does this help????
+ulimit -s unlimited
