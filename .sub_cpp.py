@@ -51,7 +51,7 @@ elif cmd == 'inn':  # Scanning temporary variables
     out = ', '.join(args) + '\n' + \
             'cin >> ' + ' >> '.join(map(lambda x: x.split()[-1], filter(bool, flatten(map(lambda a: a.split(';'), args))))) + ';'
 elif cmd == 'in':   # Scanning values
-    out = 'cin >> ' + ' >> '.join(bracket(args)) + ';'
+    out = 'cin >> ' + ' >> '.join(args) + ';'
 elif cmd == 'print':  # Printing values
     out = 'cout << ' + ' << \' \' << '.join(bracket(args)) + ' << \'\\n\';'
 elif cmd == 'op':  # Operator overloading
