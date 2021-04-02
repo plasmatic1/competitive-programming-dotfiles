@@ -93,7 +93,7 @@ function! CompleteLine()
     call feedkeys('A', 'n')
 endfunction
 
-:inoremap <C-k> <C-c>:call CompleteLine()<CR><LF>
+" :inoremap <C-k> <C-c>:call CompleteLine()<CR><LF>
 
 " Changing cursor by mode
 " Highlighting cursor

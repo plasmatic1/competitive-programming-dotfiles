@@ -13,6 +13,7 @@ from os.path import abspath, join, isabs, normpath, exists, splitext, \
 default_flags = [
     "-Wall",
     "-Wextra",
+    "-std=c++1z"
 ]
 
 ##

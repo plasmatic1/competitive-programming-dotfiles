@@ -1,6 +1,6 @@
 #!bash
 
-judges=(dmoj cf sgu fhc unfinished uwacm kattis usaco usaco21janplat atcoder moose20c1 lv7 dmopc20c3)
+judges=(dmoj cf sgu fhc unfinished kattis usaco usaco21febplat atcoder moose20c1 lv7 reply kor dmopc20c4 kickstart gcj)
 WINHOME=$(cmd.exe /C "cd /D %USERPROFILE% && bash.exe -c pwd")
 
 for d in ${judges[@]}; do
