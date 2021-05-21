@@ -48,7 +48,7 @@ if cmd == 'for':  # For loops
     jmp = jmp[0] if jmp else (f'{var}++' if 'R' not in opt else f'{var}--')
     out = f'for (auto {var} = {st}; {var} {cmp} {en}; {jmp})'
 elif cmd == 'inn':  # Scanning temporary variables
-    out = ', '.join(args) + '\n' + \
+    out = ', '.join(args).rstrip(';') + '; ' + \
             'cin >> ' + ' >> '.join(map(lambda x: x.split()[-1], filter(bool, flatten(map(lambda a: a.split(';'), args))))) + ';'
 elif cmd == 'in':   # Scanning values
     out = 'cin >> ' + ' >> '.join(args) + ';'
