@@ -100,6 +100,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 WINHOME=$(cmd.exe /C "cd /D %USERPROFILE% && bash.exe -c pwd")
+# WINHOME=/mnt/c/users/Moses  # Temporary fix... :(
 cd $WINHOME/Dropbox/competitive
 
 # Export to macrohard bimbows
@@ -123,3 +124,5 @@ alias g++-debug=g++ -Wall -Wextra -pedantic -std=c++11 -O2 -Wshadow -Wformat=2 -
 function repfile() {
     python3 -c "print(repr(open('$1').read()))"
 }
+
+export PATH="$HOME/.local/bin:$PATH"

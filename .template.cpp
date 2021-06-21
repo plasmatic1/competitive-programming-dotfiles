@@ -1,4 +1,4 @@
-#include "bits/stdc++.h"
+#include <bits/stdc++.h>
 using namespace std;
 
 // Defines
@@ -10,13 +10,16 @@ using namespace std;
 #define mtp make_tuple
 #define all(x) (x).begin(), (x).end()
 // Basic type definitions
+#if __cplusplus == 201703L // CPP17 only things
+template <typename T> using opt_ref = optional<reference_wrapper<T>>; // for some templates
+#endif
 using ll = long long; using ull = unsigned long long; using ld = long double;
 using pii = pair<int, int>; using pll = pair<long long, long long>;
 #ifdef __GNUG__
 // PBDS order statistic tree
-#include <ext/pb_ds/assoc_container.hpp> // Common file 
+#include <ext/pb_ds/assoc_container.hpp> // Common file
 #include <ext/pb_ds/tree_policy.hpp>
-using namespace __gnu_pbds; 
+using namespace __gnu_pbds;
 template <typename T, class comp = less<T>> using os_tree = tree<T, null_type, comp, rb_tree_tag, tree_order_statistics_node_update>;
 template <typename K, typename V, class comp = less<K>> using treemap = tree<K, V, comp, rb_tree_tag, tree_order_statistics_node_update>;
 // HashSet
@@ -40,4 +43,3 @@ int main() {
 
     return 0;
 }
-

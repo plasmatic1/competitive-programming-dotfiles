@@ -105,7 +105,7 @@ elif cmd == 'db':  # Debug O.o
                        f'cout<<"], ";{db_sep}'
             elif a_type == 'A':  # Array
                 out += f'cout<<"{val}=[";{db_sep}' + \
-                       f'for(int __i=0; __i<({a_vals[0]}); __i++)cout<<{val}[__i]<<", ";{db_sep}' + \
+                       f'for(int __i=0; __i<({a_vals[0]}); __i++)cout<<({val})[__i]<<", ";{db_sep}' + \
                        f'cout<<"], ";'
             else:
                 out = f'Invalid debug modifiers a_type={a_type}, a_vals={a_vals}, val={val}'
