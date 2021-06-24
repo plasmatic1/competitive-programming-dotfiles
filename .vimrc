@@ -52,6 +52,8 @@ endfunction
 if executable('clip.exe')
 	nnoremap ;C :call CopyFileToClipboard()<CR><LF>
     nnoremap ;P :r !powershell.exe -command "Get-Clipboard"<CR><LF>
+else " Assume Linux
+    set clipboard=unnamedplus
 endif
 
 " Building Code
