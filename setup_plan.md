@@ -22,25 +22,24 @@
 		- Firewatch
 - **Alternative**: Copy over `settings.json`
 
-# Section 1: ZSH 
+After this, alternatively you may just run the setup.sh script
+
+# Section 1: Shell Setup
+
+## install tmux
+- run `sudo apt install tmux`
 
 ## install zsh
 - run `sudo apt install zsh`
 - run `chsh -shell $(which zsh)` # change shell to zsh
 
+_Note that on linux systems, you will need to log out and back in for the shell to change_
+
 ## install oh-my-zsh
 - run `sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"` # install oh-my-zsh
-- run `touch ~/.zshrc` # ??? idk if this is necessary
-- Copy over proper zshrc
+- Copy over proper zshrc, best practice is probably to make a hard link
 
 # Section 2: Vim
-
-## Install vim basics
-- run `sudo apt install vim-gnome`
-
-## YouCompleteMe pre-setup
-- run `sudo apt install cmake
-- run `pip3 install future`
 
 ## VimRC
 - copy over `~/.vimrc`
@@ -50,10 +49,16 @@
 ## Install vundle
 - https://github.com/VundleVim/Vundle.vim#about
 - Clone and copy required files (WIP: LINK)
-- copy over correct vimrc
 - run `vim +PluginInstall +qall` to auto install all plugins
 
-## Python 3.7
+## YouCompleteMe pre-setup
+- run `sudo apt install cmake
+- run `pip3 install future`
+
+## Python 3.7 (or any other python version)
+
+_Note that if another python version is desired, the steps can be replaced for any other python version.  However, running update-alternatives to change the source of python3 may fail on unix systems and make it impossible to start the terminal normally._
+
 - Run the following commands:
 - `sudo apt update`
 - `sudo apt install software-properties-common`
@@ -63,7 +68,7 @@
 - `sudo apt install python3.7-dev` for the python3.7 headers.  This is needed for YCM installation
 
 ## YouCompleteMe 
-- run python3 ~/.vim/bundle/YouCompleteMe/install.py --clangd-completer
+- run `python3 ~/.vim/bundle/youcompleteme/install.py --clangd-completer`
 - copy over `.ycm_extra_conf.py` to `~/`
 
 # Section 3: CP Tools
@@ -81,9 +86,7 @@
 
 - run `mkdir ~/competitive`
 - run `cp -r tools ~/competitive/
-- run `cp .template.cpp ~/competitive/`
 
-## Symlinks
+## Cloning templates
 
-- `ln -s /mnt/c/users/<name>/downloads downloads
-- `ln -s /mnt/c/users/<name>/dropbox/competitive/extratemplates templates
+- run `git clone https://github.com/plasmatic1/templates`

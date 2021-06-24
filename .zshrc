@@ -99,20 +99,22 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-WINHOME=$(cmd.exe /C "cd /D %USERPROFILE% && bash.exe -c pwd")
-# WINHOME=/mnt/c/users/Moses  # Temporary fix... :(
-cd $WINHOME/Dropbox/competitive
+if [[ -f "cmd.exe" ]]; then
+	WINHOME=$(cmd.exe /C "cd /D %USERPROFILE% && bash.exe -c pwd")
+	# WINHOME=/mnt/c/users/Moses  # Temporary fix... :(
+	cd $WINHOME/Dropbox/competitive
 
-# Export to macrohard bimbows
-function expwin() {
-    if [ "$1" = "-r" ]; then
-        echo "Moving recursively to downloads"
-        cp -r "$2" "$WINHOME/Downloads"
-    else
-        echo "Moving to downloads"
-        cp "$1" "$WINHOME/Downloads"
-    fi
-}
+	# Export to macrohard bimbows
+	function expwin() {
+	    if [ "$1" = "-r" ]; then
+		echo "Moving recursively to downloads"
+		cp -r "$2" "$WINHOME/Downloads"
+	    else
+		echo "Moving to downloads"
+		cp "$1" "$WINHOME/Downloads"
+	    fi
+	}
+fi
 
 # Does this help????
 ulimit -s unlimited
@@ -126,3 +128,5 @@ function repfile() {
 }
 
 export PATH="$HOME/.local/bin:$PATH"
+
+tmux
