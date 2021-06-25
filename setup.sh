@@ -2,39 +2,46 @@
 
 echo "Running setup of environment"
 
-echo "Installing tmux"
-sudo apt install tmux
+echo
+echo "Installing tmux..."
 pause
+sudo apt install tmux
 
-echo "Installing zsh"
+echo
+echo "Installing zsh..."
+pause
 sudo apt install zsh
 chsh -shell $(which zsh)
-pause
 
-echo "Installing oh-my-zsh"
+echo
+echo "Installing oh-my-zsh..."
+pause
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ln -s $PWD/.zshrc ~/.zshrc
-pause
 
-echo "Vim Setup"
+echo
+echo "Vim Setup..."
+pause
 ln -s $PWD/.vimrc ~/.vimrc
 ln -s $PWD/.sub_cpp.py ~/.sub_cpp.py
 chmod +x ~/.sub_cpp.py
-pause
 
-echo "Install Vundle"
+echo
+echo "Install Vundle..."
+pause
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
-pause
 
+echo
 echo "YCM pre-setup"
+pause
 sudo apt install cmake
 sudo apt install python3-pip
 pip3 install future
-pause
 
-echo "Install python version with YCM"
-echo "Input the version (i.e. 3.9) or (n) to skip entirely"
+echo
+echo "Install python version for YCM..."
+echo "Input the version to install (i.e. 3.9) or (n) to skip entirely (use python version used by python3 command):"
 
 read -r ver
 if [[ "$ver"=="n" ]]; then
@@ -52,12 +59,14 @@ else
 fi
 pause
 
-echo "Install YouCompleteMe"
+echo
+echo "Install YouCompleteMe..."
+pause
 python3 ~/.vim/bundle/youcompleteme/install.py --clangd-completer
 ln -s $PWD/.ycm_extra_conf.py ~/.ycm_extra_conf.py
-pause
 
-echo "Install CP-Tools-Console"
+echo
+echo "Install CP-Tools-Console..."
 echo "Input directory to install into: (i.e. ~/repos), or (n) to not install in dev mode and instead directly from PIP."
 read -r dir
 if [[ "$dir"=="n" ]]; then
@@ -70,7 +79,8 @@ else
 fi
 pause
 
-echo "Setup CP folder"
+echo
+echo "Setup CP folder..."
 echo
 echo "Input directory for where CP folder should be:"
 read -r cpdir
