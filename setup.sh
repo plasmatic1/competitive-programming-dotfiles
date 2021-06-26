@@ -86,10 +86,10 @@ if [[ "$dir" == "n" ]]; then
 else
     echo "Installing cp-tools-console from repository"
     rdir=$(realpath $dir)
-    rm -r -f $rdir/cp-tools-console
+    sudo rm -r -f $rdir/cp-tools-console
     git clone https://github.com/plasmatic1/cp-tools-console $rdir/cp-tools-console
     cd $rdir/cp-tools-console
-    sudo python3 cp-tools-console/setup.py develop
+    sudo python3 $rdir/cp-tools-console/setup.py develop
 fi
 pause
 
@@ -113,7 +113,7 @@ rdldir=$(realpath $dldir)
 ln -f -s $PWD/tools $rcpdir/tools
 ln -f -s $PWD/.cptools $rcpdir/.cptools
 
-rm -r -f $rtempldir/templates
+sudo rm -r -f $rtempldir/templates
 git clone https://github.com/plasmatic1/templates $rtempldir/templates
 ln -f -s $rtempldir/templates $rcpdir/templates
 
