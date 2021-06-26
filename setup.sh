@@ -110,16 +110,17 @@ rcpdir=$(realpath $cpdir)
 rtempldir=$(realpath $templdir)
 rdldir=$(realpath $dldir)
 
-ln -f -s $PWD/tools $rcpdir/tools
-ln -f -s $PWD/.cptools $rcpdir/.cptools
-
+echo "Cloning templates repo"
 sudo rm -r -f $rtempldir/templates
 git clone https://github.com/plasmatic1/templates $rtempldir/templates
-ln -f -s $rtempldir/templates $rcpdir/templates
 
-ln -f -s $rdldir $rcpdir/downloads
-
+echo
+echo "Making links to competitive programming folder"
+ln -f -s $PWD/tools $rcpdir/tools
+ln -f -s $PWD/.cptools $rcpdir/.cptools
 ln -f -s $PWD/push_config.sh $rcpdir/push_config.sh
+ln -f -s $rtempldir/templates $rcpdir/templates
+ln -f -s $rdldir $rcpdir/downloads
 
 echo
 echo "Note that a system restart may be needed for some changes to apply"
