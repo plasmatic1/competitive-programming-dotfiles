@@ -1,11 +1,12 @@
 #!/bin/bash
 
 function pause() {
-    read -s -n 1 -p "Press any key to continue . . ."
+    read -s -n 1 -p "Press any key to continue..."
     echo ""
 }
 
 echo "Running setup of environment"
+echo "NOTE: Currently, if a directory needs to be specified, it must exist already or else the script will fail"
 
 echo
 echo "Installing tmux..."
@@ -49,9 +50,10 @@ pip3 install future
 echo
 echo "Install python version for YCM..."
 echo "Input the version to install (i.e. 3.9) or (n) to skip entirely (use python version used by python3 command):"
+echo "Generally, simply replying with \"n\" is fine"
 
 read -r ver
-if [[ "$ver"=="n" ]]; then
+if [[ "$ver" == "n" ]]; then
     echo "Skipping python version install"
 else
     cmd="python$ver"
@@ -74,11 +76,14 @@ ln -f -s $PWD/.ycm_extra_conf.py ~/.ycm_extra_conf.py
 
 echo
 echo "Install CP-Tools-Console..."
-echo "Input directory to install into: (i.e. ~/repos), or (n) to not install in dev mode and instead directly from PIP."
+echo "Input directory to clone repository into: (i.e. ~/repos), or (n) to not install in dev mode and instead directly from PIP."
 read -r dir
-if [[ "$dir"=="n" ]]; then
+echo
+if [[ "$dir" == "n" ]]; then
+    echo "Installing cp-tools-console from pip"
     pip3 install cp-tools-console
 else
+    echo "Installing cp-tools-console from repository"
     rdir=$(realpath $dir)
     git clone https://github.com/plasmatic1/cp-tools-console $rdir
     cd $rdir/cp-tools-console
@@ -91,6 +96,7 @@ echo "Setup CP folder..."
 echo
 echo "Input directory for where CP folder should be:"
 read -r cpdir
+echo
 rcpdir=$(realpath $cpdir)
 
 mkdir $rcpdir
@@ -98,6 +104,7 @@ cp -f -r tools $rcpdir/
 
 echo "Input directory to store templates repository:"
 read -r templdir
+echo
 rtempldir=$(realpath $templdir)
 
 git clone https://github.com/plasmatic1/templates $rtempldir
@@ -105,6 +112,7 @@ ln -f -s $rtempldir/templates $rcpdir/templates
 
 echo "Input downloads directory:"
 read -r dldir
+echo
 rdldir=$(realpath $dldir)
 ln -f -s $rdldir $rcpdir/downloads
 
