@@ -22,13 +22,14 @@ echo
 echo "Installing oh-my-zsh..."
 pause
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-ln -s $PWD/.zshrc ~/.zshrc
+ln -f -s $PWD/.zshrc ~/.zshrc
 
 echo
 echo "Vim Setup..."
 pause
-ln -s $PWD/.vimrc ~/.vimrc
-ln -s $PWD/.sub_cpp.py ~/.sub_cpp.py
+sudo apt install vim-gtk3  # Gotta have that sweet sweet xterm support
+ln -f -s $PWD/.vimrc ~/.vimrc
+ln -f -s $PWD/.sub_cpp.py ~/.sub_cpp.py
 chmod +x ~/.sub_cpp.py
 
 echo
@@ -68,7 +69,7 @@ echo
 echo "Install YouCompleteMe..."
 pause
 python3 ~/.vim/bundle/youcompleteme/install.py --clangd-completer
-ln -s $PWD/.ycm_extra_conf.py ~/.ycm_extra_conf.py
+ln -f -s $PWD/.ycm_extra_conf.py ~/.ycm_extra_conf.py
 
 echo
 echo "Install CP-Tools-Console..."
@@ -92,18 +93,18 @@ read -r cpdir
 rcpdir=$(realpath $cpdir)
 
 mkdir $rcpdir
-cp -r tools $rcpdir/
+cp -f -r tools $rcpdir/
 
 echo "Input directory to store templates repository:"
 read -r templdir
 rtempldir=$(realpath $templdir)
 
 git clone https://github.com/plasmatic1/templates $rtempldir
-ln -s $rtempldir/templates $rcpdir/templates
+ln -f -s $rtempldir/templates $rcpdir/templates
 
 echo "Input downloads directory:"
 read -r dldir
 rdldir=$(realpath $dldir)
-ln -s $rdldir $rcpdir/downloads
+ln -f -s $rdldir $rcpdir/downloads
 
-ln -s $PWD/push_config.sh $rcpdir/push_config.sh
+ln -f -s $PWD/push_config.sh $rcpdir/push_config.sh
