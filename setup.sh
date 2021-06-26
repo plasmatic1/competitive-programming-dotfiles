@@ -88,7 +88,11 @@ else
     rdir=$(realpath $dir)
     sudo rm -r -f $rdir/cp-tools-console
     git clone https://github.com/plasmatic1/cp-tools-console $rdir/cp-tools-console
+
+    olddir=$PWD
+    cd $rdir/cp-tools-console
     sudo python3 $rdir/cp-tools-console/setup.py develop
+    cd $olddir
 fi
 pause
 
