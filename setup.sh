@@ -15,7 +15,7 @@ sudo apt install tmux
 
 echo
 echo "Installing zsh..."
-echo "Note: The next step (installing oh-my-zsh) will ask to change your default shell to zsh.  It is suggested"
+echo "Note: The next step after this (installing oh-my-zsh) will ask to change your default shell to zsh.  It is suggested"
 pause
 sudo apt install zsh
 
