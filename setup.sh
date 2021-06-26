@@ -7,6 +7,7 @@ function pause() {
 
 echo "Running setup of environment"
 echo "NOTE: Currently, if a directory needs to be specified, it must exist already or else the script will fail"
+echo "NOTE 2: Paths that use ~ to specify user home dir. will not work"
 
 echo
 echo "Installing tmux..."
@@ -76,7 +77,7 @@ ln -f -s $PWD/.ycm_extra_conf.py ~/.ycm_extra_conf.py
 
 echo
 echo "Install CP-Tools-Console..."
-echo "Input directory to clone repository into: (i.e. ~/repos), or (n) to not install in dev mode and instead directly from PIP."
+echo "Input directory to clone repository into: (i.e. if .../repos is specified, the repository will be under .../repos/cp-tools-console), or (n) to not install in dev mode and instead directly from PIP."
 read -r dir
 echo
 if [[ "$dir" == "n" ]]; then
@@ -87,7 +88,7 @@ else
     rdir=$(realpath $dir)
     git clone https://github.com/plasmatic1/cp-tools-console $rdir
     cd $rdir/cp-tools-console
-    python3 setup.py develop
+    sudo python3 cp-tools-console/setup.py develop
 fi
 pause
 
@@ -99,17 +100,18 @@ read -r cpdir
 echo
 rcpdir=$(realpath $cpdir)
 
-mkdir $rcpdir
-cp -f -r tools $rcpdir/
+cp -f -r $pwd/tools $rcpdir/
 
-echo "Input directory to store templates repository:"
+echo
+echo "Input directory to clone templates repository into: (i.e. if .../repos is specified, the repository will be under .../repos/templates)"
 read -r templdir
 echo
 rtempldir=$(realpath $templdir)
 
-git clone https://github.com/plasmatic1/templates $rtempldir
+git clone https://github.com/plasmatic1/templates $rtempldir/templates
 ln -f -s $rtempldir/templates $rcpdir/templates
 
+echo
 echo "Input downloads directory:"
 read -r dldir
 echo
@@ -117,3 +119,6 @@ rdldir=$(realpath $dldir)
 ln -f -s $rdldir $rcpdir/downloads
 
 ln -f -s $PWD/push_config.sh $rcpdir/push_config.sh
+
+echo
+echo "Note that a system restart may be needed for some changes to apply"
