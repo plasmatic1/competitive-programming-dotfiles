@@ -14,12 +14,13 @@ sudo apt install tmux
 
 echo
 echo "Installing zsh..."
+echo "Note: The next step (installing oh-my-zsh) will ask to change your default shell to zsh.  It is suggested"
 pause
 sudo apt install zsh
-chsh -shell $(which zsh)
 
 echo
 echo "Installing oh-my-zsh..."
+echo "Note: You will need to type \"exit\" after oh-my-zsh installs to quit out of the newly created zsh process"
 pause
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ln -f -s $PWD/.zshrc ~/.zshrc
