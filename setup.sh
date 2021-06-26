@@ -28,6 +28,27 @@ sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools
 ln -f -s $PWD/.zshrc ~/.zshrc
 
 echo
+echo "Install python version for You-Complete-Me..."
+echo "Input the version to install (i.e. 3.9) or (n) to skip entirely (use python version used by python3 command):"
+echo "NOTE: This will reconfigure your python3 update-alternatives and add a new alternative with priority 0.  Pick \"n\" if you do not want this to happen."
+
+read -r ver
+if [[ "$ver" == "n" ]]; then
+    echo "Skipping python version install"
+else
+    cmd="python$ver"
+    echo "Installing $cmd..."
+
+    sudo apt update
+    sudo apt install software-properties-common
+    sudo add-apt-repository ppa:deadsnakes/ppa
+    sudo apt install $cmd
+    update-alternatives --install /usr/bin/python3 python3 /usr/bin/$cmd 0
+    sudo apt install $cmd-dev
+fi
+pause
+
+echo
 echo "Vim Setup..."
 pause
 sudo apt install vim-gtk3  # Gotta have that sweet sweet xterm support
@@ -47,27 +68,6 @@ pause
 sudo apt install cmake
 sudo apt install python3-pip
 pip3 install future
-
-echo
-echo "Install python version for YCM..."
-echo "Input the version to install (i.e. 3.9) or (n) to skip entirely (use python version used by python3 command):"
-echo "NOTE: This will reconfigure your python3 update-alternatives and add a new alternative with priority 0.  Pick \"n\" if you do not want this to happen."
-
-read -r ver
-if [[ "$ver" == "n" ]]; then
-    echo "Skipping python version install"
-else
-    cmd="python$ver"
-    echo "Installing $cmd..."
-
-    sudo apt update
-    sudo apt install software-properties-common
-    sudo add-apt-repository ppa:deadsnakes/ppa
-    sudo apt install $cmd
-    update-alternatives --install /usr/bin/python3 python3 /usr/bin/$cmd 0
-    sudo apt install $cmd-dev
-fi
-pause
 
 echo
 echo "Install YouCompleteMe..."

@@ -41,6 +41,18 @@ _Note that on linux systems, you will need to log out and back in for the shell 
 
 # Section 2: Vim
 
+## Python 3.7 (or any other python version)
+
+_Note that if another python version is desired, the steps can be replaced for any other python version.  However, running update-alternatives to change the source of python3 may fail on unix systems and make it impossible to start the terminal normally._
+
+- Run the following commands:
+- `sudo apt update`
+- `sudo apt install software-properties-common`
+- `sudo add-apt-repository ppa:deadsnakes/ppa`
+- `sudo apt install python3.7`
+- `update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 1`
+- `sudo apt install python3.7-dev` for the python3.7 headers.  This is needed for YCM installation
+
 ## VimRC
 - copy over `~/.vimrc`
 - copy over `~/.sub_cpp.py`
@@ -54,18 +66,6 @@ _Note that on linux systems, you will need to log out and back in for the shell 
 ## YouCompleteMe pre-setup
 - run `sudo apt install cmake
 - run `pip3 install future`
-
-## Python 3.7 (or any other python version)
-
-_Note that if another python version is desired, the steps can be replaced for any other python version.  However, running update-alternatives to change the source of python3 may fail on unix systems and make it impossible to start the terminal normally._
-
-- Run the following commands:
-- `sudo apt update`
-- `sudo apt install software-properties-common`
-- `sudo add-apt-repository ppa:deadsnakes/ppa`
-- `sudo apt install python3.7`
-- `update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 1`
-- `sudo apt install python3.7-dev` for the python3.7 headers.  This is needed for YCM installation
 
 ## YouCompleteMe 
 - run `python3 ~/.vim/bundle/youcompleteme/install.py --clangd-completer`
