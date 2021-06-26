@@ -123,6 +123,7 @@ ln -f -s $PWD/tools $rcpdir/tools
 # ln -f -s $PWD/.cptools $rcpdir/.cptools  # Currently has not been added yet :(
 ln -f -s $PWD/push_config.sh $rcpdir/push_config.sh
 ln -f -s $rtempldir/templates $rcpdir/templates
+ln -f -s $rtempldir/templates/template.cpp $rcpdir/.template.cpp
 ln -f -s $rdldir $rcpdir/downloads
 
 echo
