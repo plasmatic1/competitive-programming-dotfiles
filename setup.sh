@@ -98,24 +98,23 @@ echo
 echo "Input directory for where CP folder should be:"
 read -r cpdir
 echo
-rcpdir=$(realpath $cpdir)
-
-cp -f -r $pwd/tools $rcpdir/
-
-echo
 echo "Input directory to clone templates repository into: (i.e. if .../repos is specified, the repository will be under .../repos/templates)"
 read -r templdir
-echo
-rtempldir=$(realpath $templdir)
-
-git clone https://github.com/plasmatic1/templates $rtempldir/templates
-ln -f -s $rtempldir/templates $rcpdir/templates
-
 echo
 echo "Input downloads directory:"
 read -r dldir
 echo
+
+rcpdir=$(realpath $cpdir)
+rtempldir=$(realpath $templdir)
 rdldir=$(realpath $dldir)
+
+ln -f -s $PWD/tools $rcpdir/tools
+ln -f -s $PWD/.cptools $rcpdir/.cptools
+
+git clone https://github.com/plasmatic1/templates $rtempldir/templates
+ln -f -s $rtempldir/templates $rcpdir/templates
+
 ln -f -s $rdldir $rcpdir/downloads
 
 ln -f -s $PWD/push_config.sh $rcpdir/push_config.sh
