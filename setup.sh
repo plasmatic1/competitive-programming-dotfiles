@@ -50,7 +50,7 @@ pip3 install future
 echo
 echo "Install python version for YCM..."
 echo "Input the version to install (i.e. 3.9) or (n) to skip entirely (use python version used by python3 command):"
-echo "Generally, simply replying with \"n\" is fine"
+echo "NOTE: This will reconfigure your python3 update-alternatives and add a new alternative with priority 0.  Pick \"n\" if you do not want this to happen."
 
 read -r ver
 if [[ "$ver" == "n" ]]; then
@@ -63,7 +63,7 @@ else
     sudo apt install software-properties-common
     sudo add-apt-repository ppa:deadsnakes/ppa
     sudo apt install $cmd
-    update-alternatives --install /usr/bin/python3 python3 /usr/bin/$cmd 1
+    update-alternatives --install /usr/bin/python3 python3 /usr/bin/$cmd 0
     sudo apt install $cmd-dev
 fi
 pause
