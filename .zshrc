@@ -129,4 +129,4 @@ function repfile() {
 
 export PATH="$HOME/.local/bin:$PATH"
 
-tmux
+# tmux
