@@ -3,6 +3,7 @@ import re
 import itertools
 
 flatten = itertools.chain.from_iterable
+DEBUG_LINE_HEADER = '__RAW_DEBUG_LINE__:'
 
 def get_args(s):
     res = []
@@ -33,6 +34,11 @@ args = get_args(' '.join(spl[1:]))
 out = ''
 
 l_space = re.match(r'^(\s*)', line).group(1)  # Leading whitespace 
+
+# Toggle line from debug line back to debug statement format
+if DEBUG_LINE_HEADER in line:
+    print(l_space + line[line.rindex(DEBUG_LINE_HEADER) + len(DEBUG_LINE_HEADER):])
+    sys.exit(0)
 
 # Separator for debugging
 db_sep = ' '
@@ -84,7 +90,7 @@ elif cmd == 'dbout':  # Debug output operators
             f'    out << {" << ".join(o_vals)};\n' + \
             f'    return out;\n' + \
             f'}}'
-elif cmd == 'db':  # Debug O.o
+elif cmd == 'db':  # Debug O.o (printf)
     out = ''
     for arg in args:
         argspl = arg.split(':')
@@ -97,7 +103,7 @@ elif cmd == 'db':  # Debug O.o
                 out += f'cout<<"[{val}]: ";{db_sep}'
             elif a_type == 'a':  # Alias
                 out += f'cout<<"{a_vals[0]}="<<({val})<< ", ";{db_sep}'
-            elif a_type == 'b':  # Bits
+            elif a_type == 'b':  # Bits (as bitset)
                 out += f'cout<<"{val}="<<(bitset<{a_vals[0]}>({val}))<<", ";{db_sep}'
             elif a_type == 'I':  # Iterable
                 out += f'cout << "{val}=[";{db_sep}' + \
@@ -110,7 +116,9 @@ elif cmd == 'db':  # Debug O.o
             else:
                 out = f'Invalid debug modifiers a_type={a_type}, a_vals={a_vals}, val={val}'
                 break
-    out += f'cout << endl; // {line.strip()}'
+    out = f'if (DEBUG) {{ {out}cout << endl; }} //{DEBUG_LINE_HEADER}{line.strip()}'
+elif cmd == 'dbif': # Just create a if statement with debug
+    out = 'if (DEBUG) {\n    \n}'
 else:
     out = f'unknown command "{cmd}" with args {args}'
 

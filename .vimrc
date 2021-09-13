@@ -13,6 +13,8 @@ Plugin 'valloric/youcompleteme'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'benknoble/vim-racket'
+Plugin 'JamshedVesuna/vim-markdown-preview'
 
 call vundle#end()
 
@@ -118,3 +120,9 @@ let g:ycm_auto_trigger = 1
 
 " Airline Themes
 let g:airline_theme='wombat'
+let g:airline_powerline_fonts=1
+
+" Note-taking
+if expand('%:e') == 'md'
+    " :inoremap \mathbb{Z}
+endif
